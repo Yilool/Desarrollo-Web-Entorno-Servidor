@@ -1,2 +1,0 @@
-server.port=8080
-env1.test.controller.root=/public-api

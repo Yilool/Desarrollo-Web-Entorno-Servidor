@@ -34,7 +34,7 @@
 		<item key="RemoveFinal" value="false"/>
 	</section>
 	<section name="DialogBounds_GetterSetterTreeSelectionDialog">
-		<item key="DIALOG_X_ORIGIN" value="601"/>
+		<item key="DIALOG_X_ORIGIN" value="272"/>
 		<item key="DIALOG_Y_ORIGIN" value="29"/>
 		<item key="DIALOG_WIDTH" value="652"/>
 		<item key="DIALOG_HEIGHT" value="740"/>
@@ -50,7 +50,7 @@
 		<item key="OmitCallToSuper" value="false"/>
 	</section>
 	<section name="DialogBounds_GenerateConstructorUsingFieldsSelectionDialog">
-		<item key="DIALOG_X_ORIGIN" value="610"/>
+		<item key="DIALOG_X_ORIGIN" value="289"/>
 		<item key="DIALOG_Y_ORIGIN" value="42"/>
 		<item key="DIALOG_WIDTH" value="635"/>
 		<item key="DIALOG_HEIGHT" value="721"/>
