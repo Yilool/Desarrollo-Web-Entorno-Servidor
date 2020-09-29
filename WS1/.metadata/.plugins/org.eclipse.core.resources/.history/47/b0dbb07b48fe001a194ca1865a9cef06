@@ -1,0 +1,10 @@
+package com.jacaranda;
+
+import org.junit.jupiter.api.Test;
+
+public class CustomerTest {
+	@Test
+	public void test() {
+		assert(true);
+	}
+}

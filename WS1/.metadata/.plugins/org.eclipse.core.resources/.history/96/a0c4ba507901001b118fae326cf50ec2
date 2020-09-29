@@ -1,0 +1,65 @@
+package com.jacaranda.customer;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import com.jacaranda.entity.Customer;
+
+class CustomerControllerTest {
+
+	@Test
+	void testFailOnNull() {
+		List<Customer> nulo = null;
+
+		try {
+			nulo.stream().sorted();
+			assert (false);
+		} catch (Exception e) {
+			assert (true);
+		} finally {
+			assert (false);
+		}
+	}
+
+	@Test
+	void testFailOnEmpty() {
+		List<Customer> vacio = new ArrayList<>();
+
+		try {
+			vacio.remove(0);
+			assert (false);
+		} catch (Exception e) {
+			assert (true);
+		}
+	}
+
+	@Test
+	void testSort() {
+		List<Customer> customs= new ArrayList<>() {
+			{
+				add(new Customer("Ruben", "D", "Sevilla", "741852963-a", 7));
+				add(new Customer("Alvari", "D", "Sevilla", "963852741-b", 3));
+				add(new Customer("Yi", "D", "Sevilla", "789456123-c", 5));
+				add(new Customer("Irene", "D", "Sevilla", "321645987-d", 8));
+				add(new Customer("Raul", "D", "Sevilla", "258654951-e", 1));
+			}
+		};
+		
+		try {
+			customs.stream().sorted();
+			
+			if (customs.get(1).getId() > customs.get(0).getId()) {
+				assert(true);
+			} else {
+				assert(false);
+			}
+			
+		} catch (Exception e) {
+			assert(false);
+		}
+	}
+}

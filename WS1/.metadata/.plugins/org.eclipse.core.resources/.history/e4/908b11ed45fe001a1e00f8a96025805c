@@ -1,0 +1,76 @@
+package com.jacaranda;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jacaranda.entity.Customer;
+
+@RestController
+@RequestMapping(path = "/api")
+public class CustomerController {
+
+	private List<Customer> customers = new ArrayList<>() {
+		{
+			add(new Customer("Ruben", "D", "Sevilla", "741852963-a", 7));
+			add(new Customer("Alvari", "D", "Sevilla", "963852741-b", 3));
+			add(new Customer("Yi", "D", "Sevilla", "789456123-c", 5));
+			add(new Customer("Irene", "D", "Sevilla", "321645987-d", 8));
+			add(new Customer("Raul", "D", "Sevilla", "258654951-e", 1));
+		}
+	};
+
+	@GetMapping(path = "/cliente")
+	public List<Customer> getCustomersById(String param) {
+//		List<Customer> customSort = new ArrayList<>();
+//		customSort.addAll(customers);
+//		Collections.sort(customSort, new Comparator<Customer>() {
+//
+//			@Override
+//			public int compare(Customer c1, Customer c2) {
+//				return new Integer(c1.getId()).compareTo(new Integer(c2.getId()));
+//			}
+//		});
+//		return customSort;
+		return customers.stream().sorted().collect(Collectors.toList());
+	}
+	
+	@GetMapping(path = "/client")
+	public List<Customer> getCustomersBy(@RequestParam String param) {	
+		List<Customer> customSort = new ArrayList<>();
+		customSort.addAll(customers);
+		
+		if (param.compareTo("name") == 0) {
+			Collections.sort(customSort, new Comparator<Customer>() {
+
+				@Override
+				public int compare(Customer arg0, Customer arg1) {
+					// TODO Auto-generated method stub
+					return arg0.getName().compareTo(arg1.getName());
+				}
+				
+			});
+		}else if (param.compareTo("surname") == 0) {
+			Collections.sort(customSort, new Comparator<Customer>() {
+
+				@Override
+				public int compare(Customer arg0, Customer arg1) {
+					// TODO Auto-generated method stub
+					return arg0.getSurname().compareTo(arg1.getSurname());
+				}
+			});
+		}else if (param.compareTo("dni") == 0) {
+			
+		}
+		
+		return customSort;
+	}
+}

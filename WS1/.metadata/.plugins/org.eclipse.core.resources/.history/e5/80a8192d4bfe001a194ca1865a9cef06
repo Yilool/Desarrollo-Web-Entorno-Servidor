@@ -1,0 +1,36 @@
+package com.jacaranda.customer;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+
+import com.jacaranda.entity.Customer;
+
+class CustomerControllerTest {
+
+	@Test
+	void testFailOnNull() {
+		List<Customer> nulo = null;
+		
+		try {
+			nulo.stream().sorted();
+			assert(false);
+		} catch (Exception e) {
+			assert(true);
+		} finally {
+			assert(false);
+		}
+	}
+
+	@Test
+	void testFailOnEmpty() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	void testSort() {
+		fail("Not yet implemented");
+	}
+}
