@@ -14,6 +14,8 @@ public class Product implements Comparable<Product>, Serializable{
 	}
 	
 	public Product(String name, double price) {
+		this.prdName = name;
+		this.prdPrice = price;
 		this.prdId = id.addAndGet(1);
 	}
 
@@ -42,6 +44,4 @@ public class Product implements Comparable<Product>, Serializable{
 
 		return Integer.valueOf(this.getPrdId()).compareTo(other.getPrdId());
 	}
-	
-	
 }
