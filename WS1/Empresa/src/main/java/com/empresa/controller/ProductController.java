@@ -27,6 +27,7 @@ public class ProductController {
 		ResponseEntity<?> res = null;
 		
 		products.add(product);
+		res = ResponseEntity.status(HttpStatus.OK).body(product);
 		
 		return res;
 	}
