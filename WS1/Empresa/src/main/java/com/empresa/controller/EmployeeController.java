@@ -1,13 +1,10 @@
 package com.empresa.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,5 +84,29 @@ public class EmployeeController {
 		
 		return res;
 	}
+	
+	//Añadir producto al empleado
+		@PutMapping(path = "put-employee-product")
+		public ResponseEntity<?> putEmpPrd(@RequestParam int prdId, @RequestParam int empId) {
+			ResponseEntity<?> res = null;
+			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
+			Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == empId).findFirst().orElse(null);
+				
+			if (s.getProducts() == null || s.getProducts().isEmpty()) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
+			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
+			} else if (p1 == null) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
+			} else if (e1 == null) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
+			} else {
+				e1.addEmpProduct(p1);
+				res = ResponseEntity.status(HttpStatus.OK).body(e1);
+			}
+				
+			return res;
+		
+		}
 	
 }
