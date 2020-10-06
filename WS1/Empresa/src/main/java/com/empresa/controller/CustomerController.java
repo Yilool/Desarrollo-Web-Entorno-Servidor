@@ -1,5 +1,6 @@
 package com.empresa.controller;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Customer;
+import com.empresa.entity.Employee;
+import com.empresa.entity.Product;
 import com.empresa.service.AppService;
 
 @RestController
@@ -83,4 +86,53 @@ public class CustomerController {
 		
 		return res;
 	}
+	
+	//Añadir producto al cliente
+		@PutMapping(path = "put-employee-product")
+		public ResponseEntity<?> putCusPrd(@RequestParam int prdId, @RequestParam int cusId) {
+			ResponseEntity<?> res = null;
+			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
+			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
+					
+			if (s.getProducts() == null || s.getProducts().isEmpty()) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
+			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
+			} else if (p1 == null) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
+			} else if (e1 == null) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
+			} else {
+				e1.addEmpProduct(p1);
+				res = ResponseEntity.status(HttpStatus.OK).body(e1);
+			}
+					
+			return res;
+		}
+		
+		//Borrar producto al empleado
+		@DeleteMapping(path = "delete-employee-product")
+		public ResponseEntity<?> delEmpPrd(@RequestParam int prdId, @RequestParam int empId) {
+			ResponseEntity<?> res = null;
+			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
+			Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == empId).findFirst().orElse(null);
+			Product ep1 = e1.getEmpProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null);
+			
+			if (s.getProducts() == null || s.getProducts().isEmpty()) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
+			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
+			} else if (p1 == null) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
+			} else if (e1 == null) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
+			} else if (ep1 == null) {
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("El empleado no desarrolló dicho producto");
+			} else {
+				e1.rmEmpProduct(ep1);
+				res = ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(e1, ep1));
+			}
+			
+			return res;
+		}
 }

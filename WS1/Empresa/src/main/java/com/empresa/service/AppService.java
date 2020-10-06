@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.empresa.entity.Customer;
@@ -27,5 +29,22 @@ public class AppService {
 
 	public List<Employee> getEmployees() {
 		return employees;
+	}
+	
+	public Customer existCustom(int id) {
+		return getCustomers().stream().filter(c -> c.getCusId() == id).findFirst().orElse(null);
+	}
+	
+	public Product existProduct(int id) {
+		return getProducts().stream().filter(p -> p.getPrdId() == id).findFirst().orElse(null);
+	}
+	
+	public Employee existEmployee(int id) {
+		return getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);
+	}
+	
+	public Product existEmpPrd(int prdId, int rmpId) {
+		Product p1 = existProduct(prdId);
+		Employee e1 = exist 
 	}
 }

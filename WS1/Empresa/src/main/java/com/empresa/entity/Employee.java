@@ -27,7 +27,7 @@ public class Employee implements Comparable<Employee>, Serializable{
 		empProducts.add(p);
 	}
 	
-	public void rmCusProduct(Product p) {
+	public void rmEmpProduct(Product p) {
 		empProducts.remove(p);
 	}
 	
