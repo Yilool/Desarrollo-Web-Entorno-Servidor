@@ -88,7 +88,7 @@ public class CustomerController {
 	}
 	
 	//Añadir producto al cliente
-		@PutMapping(path = "put-employee-product")
+		@PutMapping(path = "put-customer-product")
 		public ResponseEntity<?> putCusPrd(@RequestParam int prdId, @RequestParam int cusId) {
 			ResponseEntity<?> res = null;
 			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
@@ -100,23 +100,23 @@ public class CustomerController {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
 			} else if (p1 == null) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
-			} else if (e1 == null) {
+			} else if (c1 == null) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
 			} else {
-				e1.addEmpProduct(p1);
-				res = ResponseEntity.status(HttpStatus.OK).body(e1);
+				c1.addCusProduct(p1);
+				res = ResponseEntity.status(HttpStatus.OK).body(c1);
 			}
 					
 			return res;
 		}
 		
 		//Borrar producto al empleado
-		@DeleteMapping(path = "delete-employee-product")
-		public ResponseEntity<?> delEmpPrd(@RequestParam int prdId, @RequestParam int empId) {
+		@DeleteMapping(path = "delete-customer-product")
+		public ResponseEntity<?> delEmpPrd(@RequestParam int prdId, @RequestParam int cusId) {
 			ResponseEntity<?> res = null;
 			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
-			Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == empId).findFirst().orElse(null);
-			Product ep1 = e1.getEmpProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null);
+			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
+			Product ep1 = c1.getCusProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null);
 			
 			if (s.getProducts() == null || s.getProducts().isEmpty()) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
@@ -124,13 +124,13 @@ public class CustomerController {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
 			} else if (p1 == null) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
-			} else if (e1 == null) {
+			} else if (c1 == null) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
 			} else if (ep1 == null) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("El empleado no desarrolló dicho producto");
 			} else {
-				e1.rmEmpProduct(ep1);
-				res = ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(e1, ep1));
+				c1.rmCusProduct(ep1);
+				res = ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(c1, ep1));
 			}
 			
 			return res;

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Employee implements Comparable<Employee>, Serializable{
-	private AtomicInteger id = new AtomicInteger(0);
+	private static AtomicInteger id = new AtomicInteger(0);
 	private int empId;
 	private String empName;
-	private String EmpSurname;
+	private String empSurname;
 	private ArrayList<Product> empProducts;
 	
 	public Employee() {
@@ -18,7 +18,7 @@ public class Employee implements Comparable<Employee>, Serializable{
 	
 	public Employee(String name, String surname) {
 		this.empName = name;
-		this.EmpSurname = surname;
+		this.empSurname = surname;
 		this.empId = id.addAndGet(1);
 		this.empProducts = new ArrayList<>();
 	}
@@ -40,11 +40,11 @@ public class Employee implements Comparable<Employee>, Serializable{
 	}
 
 	public String getEmpSurname() {
-		return EmpSurname;
+		return empSurname;
 	}
 
 	public void setEmpSurname(String empSurname) {
-		EmpSurname = empSurname;
+		this.empSurname = empSurname;
 	}
 
 	public int getEmpId() {

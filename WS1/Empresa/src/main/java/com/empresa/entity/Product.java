@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Product implements Comparable<Product>, Serializable{
-	private AtomicInteger id = new AtomicInteger(0);
+	private static AtomicInteger id = new AtomicInteger(0);
 	private int prdId;
 	private String prdName;
 	private double prdPrice;

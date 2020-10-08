@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Customer implements Comparable<Customer>, Serializable{
-	private AtomicInteger id = new AtomicInteger(0);
+	private static AtomicInteger id = new AtomicInteger(0);
 	private int cusId;
 	private String cusName;
 	private String cusSurname;

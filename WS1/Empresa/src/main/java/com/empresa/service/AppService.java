@@ -43,8 +43,10 @@ public class AppService {
 		return getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);
 	}
 	
-	public Product existEmpPrd(int prdId, int rmpId) {
+	public Product existEmpPrd(int prdId, int empId) {
 		Product p1 = existProduct(prdId);
-		Employee e1 = exist 
+		Employee e1 = existEmployee(empId);
+		
+		return (e1 != null && p1 != null)? e1.getEmpProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null) : null;
 	}
 }
