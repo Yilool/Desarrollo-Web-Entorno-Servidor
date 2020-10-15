@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Product;
@@ -40,7 +39,7 @@ public class ProductController {
 	}
 	
 	@GetMapping(path = "/product/{id}")
-	public ResponseEntity<?> getProduct(@PathVariable(required = false) int id) {
+	public ResponseEntity<?> getProduct(@PathVariable int id) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == id).findFirst().orElse(null);
 		
@@ -70,8 +69,8 @@ public class ProductController {
 		return res;
 	}
 	
-	@DeleteMapping(path = "/delete-product")
-	public ResponseEntity<?> delProduct(@RequestParam int id) {
+	@DeleteMapping(path = "/product/{id}")
+	public ResponseEntity<?> delProduct(@PathVariable int id) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == id).findFirst().orElse(null);
 		

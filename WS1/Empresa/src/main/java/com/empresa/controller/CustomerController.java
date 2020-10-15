@@ -8,15 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Customer;
-import com.empresa.entity.Employee;
 import com.empresa.entity.Product;
 import com.empresa.service.AppService;
 
@@ -36,13 +35,13 @@ public class CustomerController {
 		return res;
 	}
 	
-	@GetMapping(path = "/get-all-custom")
+	@GetMapping(path = "/custom")
 	public ResponseEntity<?> getAllCustom() {
 		return ResponseEntity.status(HttpStatus.OK).body(s.getCustomers().stream().sorted().collect(Collectors.toList()));
 	}
 	
-	@GetMapping(path = "/custom")
-	public ResponseEntity<?> getCustom(@RequestParam int id) {
+	@GetMapping(path = "/custom/{id}")
+	public ResponseEntity<?> getCustom(@PathVariable int id) {
 		ResponseEntity<?> res = null;
 		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == id).findFirst().orElse(null);
 		
@@ -72,8 +71,8 @@ public class CustomerController {
 		return res;
 	}
 	
-	@DeleteMapping(path = "/custom")
-	public ResponseEntity<?> delCustom(@RequestParam int id) {
+	@DeleteMapping(path = "/custom/{id}")
+	public ResponseEntity<?> delCustom(@PathVariable int id) {
 		ResponseEntity<?> res = null;
 		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == id).findFirst().orElse(null);
 		
@@ -88,8 +87,8 @@ public class CustomerController {
 	}
 	
 	//Añadir producto al cliente
-		@PutMapping(path = "put-customer-product")
-		public ResponseEntity<?> putCusPrd(@RequestParam int prdId, @RequestParam int cusId) {
+		@PutMapping(path = "/custom/{cusId}&&{prdId}")
+		public ResponseEntity<?> putCusPrd(@PathVariable int cusId, @PathVariable int prdId) {
 			ResponseEntity<?> res = null;
 			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
 			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
@@ -111,8 +110,8 @@ public class CustomerController {
 		}
 		
 		//Borrar producto al empleado
-		@DeleteMapping(path = "delete-customer-product")
-		public ResponseEntity<?> delEmpPrd(@RequestParam int prdId, @RequestParam int cusId) {
+		@DeleteMapping(path = "/custom/{cusId}&&{prdId}")
+		public ResponseEntity<?> delEmpPrd(@PathVariable int cusId, @PathVariable int prdId) {
 			ResponseEntity<?> res = null;
 			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
 			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
@@ -121,11 +120,11 @@ public class CustomerController {
 			if (s.getProducts() == null || s.getProducts().isEmpty()) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
 			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen cliente");
 			} else if (p1 == null) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
 			} else if (c1 == null) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
+				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el cliente");
 			} else if (ep1 == null) {
 				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("El empleado no desarrolló dicho producto");
 			} else {

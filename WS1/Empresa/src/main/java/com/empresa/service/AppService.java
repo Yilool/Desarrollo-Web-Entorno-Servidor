@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.empresa.entity.Customer;
@@ -47,6 +45,6 @@ public class AppService {
 		Product p1 = existProduct(prdId);
 		Employee e1 = existEmployee(empId);
 		
-		return (e1 != null && p1 != null)? e1.getEmpProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null) : null;
+		return (e1 != null && p1 != null) ? e1.getEmpProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null) : null;
 	}
 }

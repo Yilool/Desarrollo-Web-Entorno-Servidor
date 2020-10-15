@@ -8,11 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Employee;
@@ -40,8 +40,8 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.OK).body(s.getEmployees().stream().sorted().collect(Collectors.toList()));
 	}
 	
-	@GetMapping(path = "/employee")
-	public ResponseEntity<?> getEmployee(@RequestParam int id) {
+	@GetMapping(path = "/employee/{id}")
+	public ResponseEntity<?> getEmployee(@PathVariable int id) {
 		ResponseEntity<?> res = null;
 		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);
 		
@@ -71,8 +71,8 @@ public class EmployeeController {
 		return res;
 	}
 	
-	@DeleteMapping(path = "/employee")
-	public ResponseEntity<?> delProduct(@RequestParam int id) {
+	@DeleteMapping(path = "/employee/{id}")
+	public ResponseEntity<?> delProduct(@PathVariable int id) {
 		ResponseEntity<?> res = null;
 		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);
 		
@@ -87,8 +87,8 @@ public class EmployeeController {
 	}
 	
 	//Añadir producto al empleado
-	@PutMapping(path = "put-employee-product")
-	public ResponseEntity<?> putEmpPrd(@RequestParam int prdId, @RequestParam int empId) {
+	@PutMapping(path = "/employee/{empId}&&{prdId}")
+	public ResponseEntity<?> putEmpPrd(@PathVariable int empId, @PathVariable int prdId) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
 		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == empId).findFirst().orElse(null);
@@ -110,8 +110,8 @@ public class EmployeeController {
 	}
 	
 	//Borrar producto al empleado
-	@DeleteMapping(path = "delete-employee-product")
-	public ResponseEntity<?> delEmpPrd(@RequestParam int prdId, @RequestParam int empId) {
+	@DeleteMapping(path = "/employee/{empId}&&{prdId}")
+	public ResponseEntity<?> delEmpPrd(@PathVariable int empId, @PathVariable int prdId) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
 		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == empId).findFirst().orElse(null);
