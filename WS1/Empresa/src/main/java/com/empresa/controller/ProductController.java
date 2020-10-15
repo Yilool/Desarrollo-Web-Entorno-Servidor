@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public class ProductController {
 	@Autowired
 	private AppService s; 
 	
-	@PostMapping(path = "/post-product")
+	@PostMapping(path = "/product")
 	public ResponseEntity<?> postProduct(@RequestBody Product product) {
 		ResponseEntity<?> res = null;
 		
@@ -33,13 +34,13 @@ public class ProductController {
 		return res;
 	}
 	
-	@GetMapping(path = "/get-all-product")
+	@GetMapping(path = "/product")
 	public ResponseEntity<?> getAllProduct() {
 		return ResponseEntity.status(HttpStatus.OK).body(s.getProducts().stream().sorted().collect(Collectors.toList()));
 	}
 	
-	@GetMapping(path = "/get-product")
-	public ResponseEntity<?> getProduct(@RequestParam int id) {
+	@GetMapping(path = "/product/{id}")
+	public ResponseEntity<?> getProduct(@PathVariable(required = false) int id) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == id).findFirst().orElse(null);
 		
@@ -53,7 +54,7 @@ public class ProductController {
 		return res;
 	}
 	
-	@PutMapping(path = "/put-product")
+	@PutMapping(path = "/product")
 	public ResponseEntity<?> putProduct(@RequestBody Product product) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == product.getPrdId()).findFirst().orElse(null);

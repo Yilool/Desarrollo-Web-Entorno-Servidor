@@ -25,7 +25,7 @@ public class EmployeeController {
 	@Autowired
 	private AppService s; 
 	
-	@PostMapping(path = "/post-employee")
+	@PostMapping(path = "/employee")
 	public ResponseEntity<?> postEmployee(@RequestBody Employee employee) {
 		ResponseEntity<?> res = null;
 		
@@ -35,12 +35,12 @@ public class EmployeeController {
 		return res;
 	}
 	
-	@GetMapping(path = "/get-all-employee")
+	@GetMapping(path = "/employee")
 	public ResponseEntity<?> getAllEmployee() {
 		return ResponseEntity.status(HttpStatus.OK).body(s.getEmployees().stream().sorted().collect(Collectors.toList()));
 	}
 	
-	@GetMapping(path = "/get-employee")
+	@GetMapping(path = "/employee")
 	public ResponseEntity<?> getEmployee(@RequestParam int id) {
 		ResponseEntity<?> res = null;
 		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);
@@ -55,7 +55,7 @@ public class EmployeeController {
 		return res;
 	}
 	
-	@PutMapping(path = "/put-employee")
+	@PutMapping(path = "/employee")
 	public ResponseEntity<?> putEmployee(@RequestBody Employee employee) {
 		ResponseEntity<?> res = null;
 		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == employee.getEmpId()).findFirst().orElse(null);
@@ -71,7 +71,7 @@ public class EmployeeController {
 		return res;
 	}
 	
-	@DeleteMapping(path = "/delete-employee")
+	@DeleteMapping(path = "/employee")
 	public ResponseEntity<?> delProduct(@RequestParam int id) {
 		ResponseEntity<?> res = null;
 		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);

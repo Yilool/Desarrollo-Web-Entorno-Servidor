@@ -26,7 +26,7 @@ public class CustomerController {
 	@Autowired
 	private AppService s; 
 	
-	@PostMapping(path = "/post-custom")
+	@PostMapping(path = "/custom")
 	public ResponseEntity<?> postCustom(@RequestBody Customer custom) {
 		ResponseEntity<?> res = null;
 		
@@ -41,7 +41,7 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(s.getCustomers().stream().sorted().collect(Collectors.toList()));
 	}
 	
-	@GetMapping(path = "/get-custom")
+	@GetMapping(path = "/custom")
 	public ResponseEntity<?> getCustom(@RequestParam int id) {
 		ResponseEntity<?> res = null;
 		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == id).findFirst().orElse(null);
@@ -56,7 +56,7 @@ public class CustomerController {
 		return res;
 	}
 	
-	@PutMapping(path = "/put-custom")
+	@PutMapping(path = "/custom")
 	public ResponseEntity<?> putCustom(@RequestBody Customer custom) {
 		ResponseEntity<?> res = null;
 		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == custom.getCusId()).findFirst().orElse(null);
@@ -72,7 +72,7 @@ public class CustomerController {
 		return res;
 	}
 	
-	@DeleteMapping(path = "/delete-custom")
+	@DeleteMapping(path = "/custom")
 	public ResponseEntity<?> delCustom(@RequestParam int id) {
 		ResponseEntity<?> res = null;
 		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == id).findFirst().orElse(null);
