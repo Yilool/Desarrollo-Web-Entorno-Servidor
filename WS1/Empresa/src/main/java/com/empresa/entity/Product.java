@@ -1,22 +1,26 @@
 package com.empresa.entity;
 
 import java.io.Serializable;
-import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//@Entity
 public class Product implements Comparable<Product>, Serializable{
-	private static AtomicInteger id = new AtomicInteger(0);
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private int prdId;
 	private String prdName;
 	private double prdPrice;
 	
 	public Product() {
-		this.prdId = id.addAndGet(1);
 	}
 	
 	public Product(String name, double price) {
 		this.prdName = name;
 		this.prdPrice = price;
-		this.prdId = id.addAndGet(1);
 	}
 
 	public String getPrdName() {

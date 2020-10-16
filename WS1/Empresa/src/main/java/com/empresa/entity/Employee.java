@@ -2,24 +2,28 @@ package com.empresa.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+//@Entity
 public class Employee implements Comparable<Employee>, Serializable{
-	private static AtomicInteger id = new AtomicInteger(0);
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private int empId;
 	private String empName;
 	private String empSurname;
 	private ArrayList<Product> empProducts;
 	
 	public Employee() {
-		this.empId = id.addAndGet(1);
 		this.empProducts = new ArrayList<>();
 	}
 	
 	public Employee(String name, String surname) {
 		this.empName = name;
 		this.empSurname = surname;
-		this.empId = id.addAndGet(1);
 		this.empProducts = new ArrayList<>();
 	}
 	
