@@ -2,11 +2,13 @@ package com.empresa.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Customer implements Comparable<Customer>, Serializable{
@@ -15,7 +17,8 @@ public class Customer implements Comparable<Customer>, Serializable{
 	private int cusId;
 	private String cusName;
 	private String cusSurname;
-	private ArrayList<Product> cusProducts;
+	@OneToMany
+	private List<Product> cusProducts;
 	
 	public Customer() {
 		this.cusProducts = new ArrayList<>();
