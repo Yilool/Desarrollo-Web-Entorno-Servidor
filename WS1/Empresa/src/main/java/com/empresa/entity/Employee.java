@@ -2,20 +2,23 @@ package com.empresa.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-//@Entity
+@Entity
 public class Employee implements Comparable<Employee>, Serializable{
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
-	private int empId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer empId;
 	private String empName;
 	private String empSurname;
-	private ArrayList<Product> empProducts;
+	@OneToMany
+ 	private List<Product> empProducts;
 	
 	public Employee() {
 		this.empProducts = new ArrayList<>();

@@ -4,9 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
+import javax.persistence.ConstraintMode;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +19,8 @@ import javax.persistence.OneToMany;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.NonNull;
 
-@Entity 
+@Entity
+@DiscriminatorValue(value = "0")
 public class Customer {
 
 	
@@ -33,6 +37,7 @@ public class Customer {
 	private LocalDate birthDate;
 	
 	@OneToMany
+	@JoinColumn(name="address_id", foreignKey = @ForeignKey(name="addres_id_fk"), nullable = false)
 	private List<Address> addresses;
 	
 	@ElementCollection(fetch = FetchType.EAGER)

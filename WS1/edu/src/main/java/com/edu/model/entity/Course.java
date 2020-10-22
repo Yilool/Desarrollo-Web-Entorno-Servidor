@@ -1,23 +1,28 @@
 package com.edu.model.entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.ForeignKey;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Course {
+public class Course extends BasicInfo{
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
 	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "category_id_fk"), name = "category_id")
+	private Category category;
 	
-	private LocalDate startDate;
-	
-	private LocalDate endDate;
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 	
 	
 }

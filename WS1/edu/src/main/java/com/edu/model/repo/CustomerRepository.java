@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.edu.model.entity.Customer;
 
-@Repository
+//@Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
 	public Customer findCustomerByNameAndSurname(String name, String surname);

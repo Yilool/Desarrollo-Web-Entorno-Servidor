@@ -3,6 +3,7 @@ package com.empresa.controller;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,19 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Product;
+import com.empresa.repository.ProductRepository;
 import com.empresa.service.AppService;
 
 @RestController
 @RequestMapping(path = "/empresa")
 public class ProductController {
 	@Autowired
-	private AppService s; 
+	private ProductRepository productRepository;
 	
 	@PostMapping(path = "/product")
 	public ResponseEntity<?> postProduct(@RequestBody Product product) {
 		ResponseEntity<?> res = null;
-		
-		s.getProducts().add(product);
+		Product p = productRepository.save(product);	
+	
 		res = ResponseEntity.status(HttpStatus.OK).body(product);
 		
 		return res;
@@ -39,7 +41,7 @@ public class ProductController {
 	}
 	
 	@GetMapping(path = "/product/{id}")
-	public ResponseEntity<?> getProduct(@PathVariable int id) {
+	public ResponseEntity<?> getProduct(@PathVariable Integer id) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == id).findFirst().orElse(null);
 		
@@ -70,7 +72,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping(path = "/product/{id}")
-	public ResponseEntity<?> delProduct(@PathVariable int id) {
+	public ResponseEntity<?> delProduct(@PathVariable Integer id) {
 		ResponseEntity<?> res = null;
 		Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == id).findFirst().orElse(null);
 		

@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Customer implements Comparable<Customer>, Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int cusId;
+	private Integer cusId;
 	private String cusName;
 	private String cusSurname;
 	@OneToMany

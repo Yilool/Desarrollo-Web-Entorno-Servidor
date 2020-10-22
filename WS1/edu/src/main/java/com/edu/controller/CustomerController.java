@@ -20,7 +20,7 @@ public class CustomerController {
 	@Autowired
 	private CrudRepository<Customer, Long> customerRepository;
 	
-	@Autowired
+	@Autowired(required=false)
 	private CrudRepository<Address, Long> addressRepository;
 	
 	
