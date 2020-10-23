@@ -3,7 +3,7 @@
 <workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1600249408478_0" label="Java Main Sources" name="Java Main Sources"/>
 <workingSet editPageId="org.eclipse.jdt.internal.ui.DynamicSourcesWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1600249408492_1" label="Java Test Sources" name="Java Test Sources"/>
 <workingSet editPageId="org.eclipse.ui.resourceWorkingSetPage" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1600249780335_3" label="jacaranda" name="jacaranda">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/jacaranda" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/Prueba" type="4"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1600249410488_2" label="Window Working Set" name="Aggregate for window 1600249410487"/>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1600409461023_4" label="Window Working Set" name="Aggregate for window 1600409461023"/>

@@ -15,28 +15,20 @@ import com.empresa.entity.Product;
 
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Integer>{
-	
-	public static final EntityManager em = null;
-	
-	@Override
-	default Optional<Product> findById(Integer id) {
-		
-		return null;
-	}
-
-	public default Product getById(Integer id) {
-		String sql = "select * from Product where prdId = '" + id + ";";
-		Query q = em.createNamedQuery(sql);
-		return null;
-	}
-	
-	
-	public default  List<Product> getAllOrderById() {
-		List<Product> resultList = new ArrayList<>();
-		findAll().forEach(resultList::add);
-		
-		return resultList.stream().sorted().collect(Collectors.toList());
-	}
+//	public static final EntityManager em = null;
+//	public default Product getById(Integer id) {
+//		String sql = "select * from Product where prdId = '" + id + ";";
+//		Query q = em.createNamedQuery(sql);
+//		return null;
+//	}
+//	
+//	
+//	public default  List<Product> getAllOrderById() {
+//		List<Product> resultList = new ArrayList<>();
+//		findAll().forEach(resultList::add);
+//		
+//		return resultList.stream().sorted().collect(Collectors.toList());
+//	}
 	
 	public List<Product> findAllOrderedById();
 }

@@ -28,8 +28,8 @@ public class ProductController {
 	@PostMapping(path = "/product")
 	public ResponseEntity<?> postProduct(@RequestBody Product product) {
 		ResponseEntity<?> res = null;
-		Product p = productRepository.save(product);	
-	
+		
+		productRepository.save(product);	
 		res = ResponseEntity.status(HttpStatus.OK).body(product);
 		
 		return res;
@@ -37,7 +37,7 @@ public class ProductController {
 	
 	@GetMapping(path = "/product")
 	public ResponseEntity<?> getAllProduct() {
-		return ResponseEntity.status(HttpStatus.OK).body(s.getProducts().stream().sorted().collect(Collectors.toList()));
+		return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
 	}
 	
 	@GetMapping(path = "/product/{id}")
