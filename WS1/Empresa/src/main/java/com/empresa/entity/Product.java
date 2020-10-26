@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Product implements Comparable<Product>, Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer prdId;
+	private Integer id;
 	private String prdName;
 	private double prdPrice;
 	
@@ -40,7 +40,7 @@ public class Product implements Comparable<Product>, Serializable{
 	}
 
 	public int getPrdId() {
-		return prdId;
+		return id;
 	}
 
 	@Override

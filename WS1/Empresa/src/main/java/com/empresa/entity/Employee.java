@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -18,6 +20,7 @@ public class Employee implements Comparable<Employee>, Serializable{
 	private String empName;
 	private String empSurname;
 	@OneToMany
+	@JoinColumn(name="product_id", foreignKey = @ForeignKey(name="product_id_fk"), nullable = false)
  	private List<Product> empProducts;
 	
 	public Employee() {
