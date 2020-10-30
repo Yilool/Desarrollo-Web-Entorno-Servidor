@@ -3,6 +3,8 @@ package com.empresa.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -15,61 +17,72 @@ import javax.persistence.OneToMany;
 public class Customer implements Comparable<Customer>, Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer cusId;
-	private String cusName;
-	private String cusSurname;
-	@OneToMany
-	@JoinColumn(name="product_id", foreignKey = @ForeignKey(name="product_id_fk"), nullable = false)
-	private List<Product> cusProducts;
+	private Integer id;
+	private String name;
+	private String surname;
+	@OneToMany(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "productos_cliente", foreignKey = @ForeignKey(name="product_id_custom_fk"), nullable = false)
+	private List<Product> products;
 	
 	public Customer() {
-		this.cusProducts = new ArrayList<>();
+		this.products = new ArrayList<>();
 	}
 	
 	public Customer(String name, String surname) {
-		this.cusName = name;
-		this.cusSurname = surname;
-		this.cusProducts = new ArrayList<>();
+		this.name = name;
+		this.surname = surname;
+		this.products = new ArrayList<>();
 	}
 	
-	public void addCusProduct(Product p) {
-		cusProducts.add(p);
+	public void addProduct(Product p) {
+		products.add(p);
 	}
 	
-	public void rmCusProduct(Product p) {
-		cusProducts.remove(p);
+	public void rmProduct(Product p) {
+		products.remove(p);
 	}
 
-	public String getCusName() {
-		return cusName;
+	public String getName() {
+		return name;
 	}
 
-	public void setCusName(String cusName) {
-		this.cusName = cusName;
+	public void setName(String cusName) {
+		this.name = cusName;
+	}
+	
+	public Integer getId() {
+		return id;
 	}
 
-	public String getCusSurname() {
-		return cusSurname;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public void setCusSurname(String cusSurname) {
-		this.cusSurname = cusSurname;
+	public void setProducts(List<Product> cusProducts) {
+		this.products = cusProducts;
 	}
 
-	public Integer getCusId() {
-		return cusId;
+
+	public String getSurname() {
+		return surname;
 	}
 
-	public ArrayList<Product> getCusProducts() {
+	public void setSurname(String cusSurname) {
+		this.surname = cusSurname;
+	}
+
+
+
+	public ArrayList<Product> getProducts() {
 		ArrayList<Product> aux = new ArrayList<>();
 		
-		aux.addAll(cusProducts);
+		aux.addAll(products);
 		
 		return aux;
 	}
 
 	@Override
 	public int compareTo(Customer other) {
-		return Integer.valueOf(this.cusId).compareTo(other.getCusId());
+		return Integer.valueOf(this.id).compareTo(other.getId());
 	}
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Customer;
 import com.empresa.entity.Product;
-import com.empresa.service.AppService;
 import com.empresa.service.CustomerService;
 import com.empresa.service.ProductService;
 
@@ -52,52 +51,52 @@ public class CustomerController {
 		return customerService.borrarCliente(id);
 	}
 	
-	//Añadir producto al cliente
-		@PutMapping(path = "/custom/{cusId}&&{prdId}")
-		public ResponseEntity<?> putCusPrd(@PathVariable int cusId, @PathVariable int prdId) {
-			ResponseEntity<?> res = null;
-			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
-			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
-					
-			if (s.getProducts() == null || s.getProducts().isEmpty()) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
-			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
-			} else if (p1 == null) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
-			} else if (c1 == null) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
-			} else {
-				c1.addCusProduct(p1);
-				res = ResponseEntity.status(HttpStatus.OK).body(c1);
-			}
-					
-			return res;
-		}
-		
-		//Borrar producto al empleado
-		@DeleteMapping(path = "/custom/{cusId}&&{prdId}")
-		public ResponseEntity<?> delEmpPrd(@PathVariable int cusId, @PathVariable int prdId) {
-			ResponseEntity<?> res = null;
-			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
-			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
-			Product ep1 = c1.getCusProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null);
-			
-			if (s.getProducts() == null || s.getProducts().isEmpty()) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
-			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen cliente");
-			} else if (p1 == null) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
-			} else if (c1 == null) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el cliente");
-			} else if (ep1 == null) {
-				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("El empleado no desarrolló dicho producto");
-			} else {
-				c1.rmCusProduct(ep1);
-				res = ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(c1, ep1));
-			}
-			
-			return res;
-		}
+//	//Añadir producto al cliente
+//		@PutMapping(path = "/custom/{cusId}&&{prdId}")
+//		public ResponseEntity<?> putCusPrd(@PathVariable int cusId, @PathVariable int prdId) {
+//			ResponseEntity<?> res = null;
+//			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
+//			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
+//					
+//			if (s.getProducts() == null || s.getProducts().isEmpty()) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
+//			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen empleados");
+//			} else if (p1 == null) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
+//			} else if (c1 == null) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
+//			} else {
+//				c1.addCusProduct(p1);
+//				res = ResponseEntity.status(HttpStatus.OK).body(c1);
+//			}
+//					
+//			return res;
+//		}
+//		
+//		//Borrar producto al empleado
+//		@DeleteMapping(path = "/custom/{cusId}&&{prdId}")
+//		public ResponseEntity<?> delEmpPrd(@PathVariable int cusId, @PathVariable int prdId) {
+//			ResponseEntity<?> res = null;
+//			Product p1 = s.getProducts().stream().filter(p -> p.getPrdId() == prdId).findFirst().orElse(null);
+//			Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == cusId).findFirst().orElse(null);
+//			Product ep1 = c1.getCusProducts().stream().filter(ep -> ep.getPrdId() == prdId).findFirst().orElse(null);
+//			
+//			if (s.getProducts() == null || s.getProducts().isEmpty()) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen productos");
+//			} else if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen cliente");
+//			} else if (p1 == null) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el producto");
+//			} else if (c1 == null) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el cliente");
+//			} else if (ep1 == null) {
+//				res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("El empleado no desarrolló dicho producto");
+//			} else {
+//				c1.rmCusProduct(ep1);
+//				res = ResponseEntity.status(HttpStatus.OK).body(Arrays.asList(c1, ep1));
+//			}
+//			
+//			return res;
+//		}
 }

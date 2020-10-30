@@ -16,7 +16,7 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer>{
     public default List<Customer> getAllOrderById() {
         List<Customer> resultList = new ArrayList<>();
 
-        findAll().forEadh(resultList::add);
+        findAll().forEach(resultList::add);
 
         return resultList.stream().sorted().collect(Collectors.toList());
     }

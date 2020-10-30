@@ -12,40 +12,44 @@ public class Product implements Comparable<Product>, Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	private String prdName;
-	private double prdPrice;
+	private String name;
+	private double price;
 	
 	public Product() {
 	}
 	
 	public Product(String name, double price) {
-		this.prdName = name;
-		this.prdPrice = price;
+		this.name = name;
+		this.price = price;
 	}
 
 	public String getPrdName() {
-		return prdName;
+		return name;
 	}
 
 	public void setPrdName(String prdName) {
-		this.prdName = prdName;
+		this.name = prdName;
 	}
 
 	public double getPrdPrice() {
-		return prdPrice;
+		return price;
 	}
 
 	public void setPrdPrice(double prdPrice) {
-		this.prdPrice = prdPrice;
+		this.price = prdPrice;
 	}
 
-	public Integer getPrdId() {
+	public Integer getId() {
 		return id;
+	}
+	
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	@Override
 	public int compareTo(Product other) {
 
-		return Integer.valueOf(this.getPrdId()).compareTo(other.getPrdId());
+		return Integer.valueOf(this.getId()).compareTo(other.getId());
 	}
 }

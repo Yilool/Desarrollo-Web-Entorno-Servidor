@@ -1,5 +1,10 @@
 package com.empresa.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
 import com.empresa.entity.Customer;
 import com.empresa.repository.CustomerRepository;
 import com.empresa.repository.ProductRepository;
@@ -14,7 +19,7 @@ public class CustomerService {
     public ResponseEntity<?> crearCliente(Customer c) {
         ResponseEntity<?> res = null;
 
-        c.getCusProducts().forEach(p -> productRepository.save(p));
+        c.getProducts().forEach(p -> productRepository.save(p));
         customerRepository.save(c);
         res = ResponseEntity.status(HttpStatus.OK).body(c);
 
@@ -28,7 +33,7 @@ public class CustomerService {
     public ResponseEntity<?> obtenerCliente(Integer id) {
         ResponseEntity<?> res = null;
 
-        if (customerRepository.existById(id)) {
+        if (customerRepository.existsById(id)) {
             res = ResponseEntity.status(HttpStatus.OK).body(customerRepository.findCustomerById(id));
         } else {
             res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra cliente con id: "+id);
@@ -40,13 +45,14 @@ public class CustomerService {
     public ResponseEntity<?> actualizarCliente(Customer c) {
         ResponseEntity<?> res = null;
 
-        if (customerRepository.existById(c.getCusId())) {
-            Customer c1 = customerRepository.findCustomerById(c.getCusId());
-            c1.setCusName(c.getCusName());
-            c1.setCusSurname(c.getCusSurname());
+        if (customerRepository.existsById(c.getId())) {
+            Customer c1 = customerRepository.findCustomerById(c.getId());
+            c1.setName(c.getName());
+            c1.setSurname(c.getSurname());
+            customerRepository.save(c1);
             res = ResponseEntity.status(HttpStatus.OK).body(c1);
         } else {
-            res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra cliente con id: "+c.getCusId());
+            res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra cliente con id: "+c.getId());
         }
 
         return res;
@@ -55,7 +61,7 @@ public class CustomerService {
     public ResponseEntity<?> borrarCliente(Integer id) {
         ResponseEntity<?> res = null;
 
-        if (customerRepository.existById(id)) {
+        if (customerRepository.existsById(id)) {
             customerRepository.deleteById(id);
             res = ResponseEntity.status(HttpStatus.OK).body("Se ha borrado el cliente con id: "+id);
         } else {
@@ -68,8 +74,8 @@ public class CustomerService {
     public ResponseEntity<?> añadirProducto(Integer clienteID, Integer productoID) {
         ResponseEntity<?> res = null;
 
-        if (customerRepository.existById(clienteID)) {
-            if (productRepository.existById(productoID)) {
+        if (customerRepository.existsById(clienteID)) {
+            if (productRepository.existsById(productoID)) {
                 
             } else {
                 res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto con id: "+productoID);
@@ -84,8 +90,8 @@ public class CustomerService {
     public ResponseEntity<?> borrarProducto(Integer clienteID, Integer productoID) {
         ResponseEntity<?> res = null;
 
-        if (customerRepository.existById(clienteID)) {
-            if (productRepository.existById(productoID)) {
+        if (customerRepository.existsById(clienteID)) {
+            if (productRepository.existsById(productoID)) {
                 
             } else {
                 res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto con id: "+productoID);

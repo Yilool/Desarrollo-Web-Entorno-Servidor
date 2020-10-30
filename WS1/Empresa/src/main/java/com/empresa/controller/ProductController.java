@@ -1,7 +1,6 @@
 package com.empresa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Product;
-import com.empresa.repository.ProductRepository;
 import com.empresa.service.ProductService;
 
 @RestController
@@ -33,13 +31,13 @@ public class ProductController {
 	}
 	
 	@GetMapping(path = "/product/{id}")
-	public ResponseEntity<?> getProduct(@PathVariable Integer id) {p
+	public ResponseEntity<?> getProduct(@PathVariable Integer id) {
 		return productService.obtenerProducto(id);
 	}
 	
 	@PutMapping(path = "/product")
 	public ResponseEntity<?> putProduct(@RequestBody Product product) {
-		return productService.actualizarProducto(p);
+		return productService.actualizarProducto(product);
 	}
 	
 	@DeleteMapping(path = "/product/{id}")

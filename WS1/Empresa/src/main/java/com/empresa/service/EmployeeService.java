@@ -1,11 +1,13 @@
 package com.empresa.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
 import com.empresa.entity.Employee;
 import com.empresa.repository.EmployeeRepository;
 import com.empresa.repository.ProductRepository;
-
-import jdk.internal.net.http.Response;
-import jdk.internal.net.http.hpack.IntegerReader;
 
 @Service
 public class EmployeeService {
@@ -17,7 +19,7 @@ public class EmployeeService {
     public ResponseEntity<?> crearEmpleado(Employee e) {
         ResponseEntity<?> res = null;
 
-        e.getEmpProducts().forEach(p -> productRepository.save(p));
+        e.getProducts().forEach(p -> productRepository.save(p));
         employeeRepository.save(e);
         res = ResponseEntity.status(HttpStatus.OK).body(e);
 
@@ -31,7 +33,7 @@ public class EmployeeService {
     public ResponseEntity<?> obtenerEmpleado(Integer id) {
         ResponseEntity<?> res = null;
 
-        if (employeeRepository.existById(id)) {
+        if (employeeRepository.existsById(id)) {
             res = ResponseEntity.status(HttpStatus.OK).body(employeeRepository.findEmployeeById(id));
         } else {
             res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra empleado con id: "+id);
@@ -43,13 +45,14 @@ public class EmployeeService {
     public ResponseEntity<?> actualizarEmpleado(Employee e) {
         ResponseEntity<?> res = null;
 
-        if (employeeRepository.existById(e.getEmpId())) {
-            Employee e1 = employeeRepository.findEmployeeById(e.getEmpId());
-            e1.setEmpName(e.getEmpName());
-            e1.setEmpSurname(e.getEmpSurname());
+        if (employeeRepository.existsById(e.getId())) {
+            Employee e1 = employeeRepository.findEmployeeById(e.getId());
+            e1.setName(e.getName());
+            e1.setSurname(e.getSurname());
+            employeeRepository.save(e1);
             res = ResponseEntity.status(HttpStatus.OK).body(e1);
         } else {
-            res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra empleado con id: "+e.getEmpId());
+            res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra empleado con id: "+e.getId());
         }
 
         return res;
@@ -58,7 +61,7 @@ public class EmployeeService {
     public ResponseEntity<?> borrarEmpleado(Integer id) {
         ResponseEntity<?> res = null;
 
-        if (employeeRepository.existById(id)) {
+        if (employeeRepository.existsById(id)) {
             employeeRepository.deleteById(id);
             res = ResponseEntity.status(HttpStatus.OK).body("Se ha borrado el empleado con id: "+id);
         } else {
@@ -71,8 +74,8 @@ public class EmployeeService {
     public ResponseEntity<?> añadirProducto(Integer empleadoID, Integer productoID) {
         ResponseEntity<?> res = null;
 
-        if (employeeRepository.existById(empleadoID)) {
-            if (productRepository.existById(productoID)) {
+        if (employeeRepository.existsById(empleadoID)) {
+            if (productRepository.existsById(productoID)) {
                 
             } else {
                 res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto con id: "+productoID);
@@ -87,8 +90,8 @@ public class EmployeeService {
     public ResponseEntity<?> borrarProducto(Integer empleadoID, Integer productoID) {
         ResponseEntity<?> res = null;
 
-        if (employeeRepository.existById(empleadoID)) {
-            if (productRepository.existById(productoID)) {
+        if (employeeRepository.existsById(empleadoID)) {
+            if (productRepository.existsById(productoID)) {
                 
             } else {
                 res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto con id: "+productoID);
