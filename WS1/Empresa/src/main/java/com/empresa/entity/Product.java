@@ -39,7 +39,7 @@ public class Product implements Comparable<Product>, Serializable{
 		this.prdPrice = prdPrice;
 	}
 
-	public int getPrdId() {
+	public Integer getPrdId() {
 		return id;
 	}
 

@@ -18,72 +18,38 @@ import org.springframework.web.bind.annotation.RestController;
 import com.empresa.entity.Customer;
 import com.empresa.entity.Product;
 import com.empresa.service.AppService;
+import com.empresa.service.CustomerService;
+import com.empresa.service.ProductService;
 
 @RestController
 @RequestMapping(path = "/empresa")
 public class CustomerController {
 	@Autowired
-	private AppService s; 
+	private CustomerService customerService; 
 	
 	@PostMapping(path = "/custom")
 	public ResponseEntity<?> postCustom(@RequestBody Customer custom) {
-		ResponseEntity<?> res = null;
-		
-		s.getCustomers().add(custom);
-		res = ResponseEntity.status(HttpStatus.OK).body(custom);
-		
-		return res;
+		return customerService.crearCliente(custom);
 	}
 	
 	@GetMapping(path = "/custom")
 	public ResponseEntity<?> getAllCustom() {
-		return ResponseEntity.status(HttpStatus.OK).body(s.getCustomers().stream().sorted().collect(Collectors.toList()));
+		return customerService.obtenerClientes();
 	}
 	
 	@GetMapping(path = "/custom/{id}")
-	public ResponseEntity<?> getCustom(@PathVariable int id) {
-		ResponseEntity<?> res = null;
-		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == id).findFirst().orElse(null);
-		
-		if (s.getCustomers() == null || s.getCustomers().isEmpty()) {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay clientes en la base");
-		} else if (c1 == null && !s.getCustomers().contains(c1)) {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el cliente");
-		} else if (s.getCustomers().contains(c1)) {
-			res = ResponseEntity.status(HttpStatus.OK).body(c1);
-		}
-		return res;
+	public ResponseEntity<?> getCustom(@PathVariable Integer id) {
+		return customerService.obtenerCliente(id);
 	}
 	
 	@PutMapping(path = "/custom")
 	public ResponseEntity<?> putCustom(@RequestBody Customer custom) {
-		ResponseEntity<?> res = null;
-		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == custom.getCusId()).findFirst().orElse(null);
-		
-		if (c1 != null) {
-			c1.setCusName(custom.getCusName());
-			c1.setCusSurname(custom.getCusSurname());
-			res = ResponseEntity.status(HttpStatus.OK).body(c1);
-		} else {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el cliente");
-		}
-		
-		return res;
+		return customerService.actualizarCliente(custom);
 	}
 	
 	@DeleteMapping(path = "/custom/{id}")
-	public ResponseEntity<?> delCustom(@PathVariable int id) {
-		ResponseEntity<?> res = null;
-		Customer c1 = s.getCustomers().stream().filter(c -> c.getCusId() == id).findFirst().orElse(null);
-		
-		if (c1 == null) {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el cliente");
-		} else {
-			s.getCustomers().remove(c1);
-			res = ResponseEntity.status(HttpStatus.OK).body(c1);
-		}
-		
-		return res;
+	public ResponseEntity<?> delCustom(@PathVariable Integer id) {
+		return customerService.borrarCliente(id);
 	}
 	
 	//Añadir producto al cliente

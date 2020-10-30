@@ -17,73 +17,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Employee;
 import com.empresa.entity.Product;
-import com.empresa.service.AppService;
+import com.empresa.service.EmployeeService;
 
 @RestController
 @RequestMapping(path = "/empresa")
 public class EmployeeController {
 	@Autowired
-	private AppService s; 
+	private EmployeeService employeeService;
 	
 	@PostMapping(path = "/employee")
 	public ResponseEntity<?> postEmployee(@RequestBody Employee employee) {
-		ResponseEntity<?> res = null;
-		
-		s.getEmployees().add(employee);
-		res = ResponseEntity.status(HttpStatus.OK).body(employee);
-		
-		return res;
+		return employeeService.crearEmpleado(employee);
 	}
 	
 	@GetMapping(path = "/employee")
 	public ResponseEntity<?> getAllEmployee() {
-		return ResponseEntity.status(HttpStatus.OK).body(s.getEmployees().stream().sorted().collect(Collectors.toList()));
+		return employeeService.obtenerEmpleados();
 	}
 	
 	@GetMapping(path = "/employee/{id}")
-	public ResponseEntity<?> getEmployee(@PathVariable int id) {
-		ResponseEntity<?> res = null;
-		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);
-		
-		if (s.getEmployees() == null || s.getEmployees().isEmpty()) {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No hay empleados en la base");
-		} else if (e1 == null && !s.getEmployees().contains(e1)) {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleados");
-		} else if (s.getEmployees().contains(e1)) {
-			res = ResponseEntity.status(HttpStatus.OK).body(e1);
-		}
-		return res;
+	public ResponseEntity<?> getEmployee(@PathVariable Integer id) {
+		return employeeService.obtenerEmpleado(id);
 	}
 	
 	@PutMapping(path = "/employee")
 	public ResponseEntity<?> putEmployee(@RequestBody Employee employee) {
-		ResponseEntity<?> res = null;
-		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == employee.getEmpId()).findFirst().orElse(null);
-		
-		if (e1 != null) {
-			e1.setEmpName(employee.getEmpName());
-			e1.setEmpSurname(employee.getEmpSurname());
-			res = ResponseEntity.status(HttpStatus.OK).body(e1);
-		} else {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleados");
-		}
-		
-		return res;
+		return employeeService.actualizarEmpleado(employee);
 	}
 	
 	@DeleteMapping(path = "/employee/{id}")
-	public ResponseEntity<?> delProduct(@PathVariable int id) {
-		ResponseEntity<?> res = null;
-		Employee e1 = s.getEmployees().stream().filter(e -> e.getEmpId() == id).findFirst().orElse(null);
-		
-		if (e1 == null) {
-			res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existe el empleado");
-		} else {
-			s.getEmployees().remove(e1);
-			res = ResponseEntity.status(HttpStatus.OK).body(e1);
-		}
-		
-		return res;
+	public ResponseEntity<?> delProduct(@PathVariable Integer id) {
+		return employeeService.borrarEmpleado(id);
 	}
 	
 	//Añadir producto al empleado

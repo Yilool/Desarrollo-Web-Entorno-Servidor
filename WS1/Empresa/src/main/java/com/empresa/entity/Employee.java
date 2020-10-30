@@ -57,7 +57,7 @@ public class Employee implements Comparable<Employee>, Serializable{
 		this.empSurname = empSurname;
 	}
 
-	public int getEmpId() {
+	public Integer getEmpId() {
 		return empId;
 	}
 

@@ -56,7 +56,7 @@ public class Customer implements Comparable<Customer>, Serializable{
 		this.cusSurname = cusSurname;
 	}
 
-	public int getCusId() {
+	public Integer getCusId() {
 		return cusId;
 	}
 

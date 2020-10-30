@@ -14,65 +14,36 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Product;
 import com.empresa.repository.ProductRepository;
+import com.empresa.service.ProductService;
 
 @RestController
 @RequestMapping(path = "/empresa")
 public class ProductController {
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductService productService;
 	
 	@PostMapping(path = "/product")
 	public ResponseEntity<?> postProduct(@RequestBody Product product) {
-		ResponseEntity<?> res = null;
-		
-		productRepository.save(product);	
-		res = ResponseEntity.status(HttpStatus.OK).body(product);
-		
-		return res;
+		return productService.crearProducto(product);
 	}
 	
 	@GetMapping(path = "/product")
 	public ResponseEntity<?> getAllProduct() {
-		return ResponseEntity.status(HttpStatus.OK).body(productRepository.findAll());
+		return productService.obtenerProductos();
 	}
 	
 	@GetMapping(path = "/product/{id}")
-	public ResponseEntity<?> getProduct(@PathVariable Integer id) {
-		ResponseEntity<?> res = null;
-		
-		if (productRepository.existsById(id)) {
-			ResponseEntity.status(HttpStatus.OK).body(productRepository.findById(id));
-		} else {
-			ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto con id: "+id);
-		}
-		return res;
+	public ResponseEntity<?> getProduct(@PathVariable Integer id) {p
+		return productService.obtenerProducto(id);
 	}
 	
 	@PutMapping(path = "/product")
 	public ResponseEntity<?> putProduct(@RequestBody Product product) {
-		ResponseEntity<?> res = null;
-		
-		if (productRepository.existsById(product.getPrdId())) {
-			Product p = productRepository.findProductById(product.getPrdId());
-			p.setPrdName(product.getPrdName());
-			p.setPrdPrice(product.getPrdPrice());
-		} else {
-			ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto con id: "+product.getPrdId());
-		}
-		return res;
+		return productService.actualizarProducto(p);
 	}
 	
 	@DeleteMapping(path = "/product/{id}")
 	public ResponseEntity<?> delProduct(@PathVariable Integer id) {
-		ResponseEntity<?> res = null;
-		
-		if (productRepository.existsById(id)) {
-			productRepository.deleteById(id);
-			ResponseEntity.status(HttpStatus.OK).body("Producto con id: "+id+" borrado");
-		} else {
-			ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra producto con id: "+id);
-		}
-		
-		return res;
+		return productService.borrarProducto(id);
 	}
 }

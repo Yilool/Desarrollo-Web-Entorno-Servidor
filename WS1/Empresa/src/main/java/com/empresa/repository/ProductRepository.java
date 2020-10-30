@@ -15,13 +15,12 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 //		return null;
 //	}
 //	
-//	
-//	public default  List<Product> getAllOrderById() {
-//		List<Product> resultList = new ArrayList<>();
-//		findAll().forEach(resultList::add);
-//		
-//		return resultList.stream().sorted().collect(Collectors.toList());
-//	}
-	
-	//public List<Product> findAllOrderedById();
+//	public List<Product> findAllOrderedById();
+
+	public default List<Product> getAllOrderById() {
+		List<Product> resultList = new ArrayList<>();
+		findAll().forEach(resultList::add);
+		
+		return resultList.stream().sorted().collect(Collectors.toList());
+	}
 }
