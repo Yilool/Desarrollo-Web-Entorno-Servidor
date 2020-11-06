@@ -71,7 +71,7 @@ public class LibraryService {
 		return res;
 	}
 	
-	public ResponseEntity<?> añadirLibro(Integer libraryId, Integer bookId) {
+	public ResponseEntity<?> anniadirLibro(Integer libraryId, Integer bookId) {
 		ResponseEntity<?> res = null;
 
 		if (libraryRepository.existsById(libraryId)) {

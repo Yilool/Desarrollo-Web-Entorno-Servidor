@@ -108,7 +108,7 @@ public class BookService {
 	 * @param pageId
 	 * @return ResponseEntity<?>
 	 */
-	public ResponseEntity<?> añadirPagina(Integer bookId, Integer pageId) {
+	public ResponseEntity<?> anniadirPagina(Integer bookId, Integer pageId) {
 		ResponseEntity<?> res = null;
 
 		if (bookRepository.existsById(bookId)) {

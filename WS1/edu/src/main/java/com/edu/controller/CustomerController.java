@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.edu.model.entity.Address;
 import com.edu.model.entity.Customer;
 import com.edu.model.repo.CustomerRepository;
+import com.edu.service.IService;
+
+import javassist.NotFoundException;
 
 @RestController
 public class CustomerController {
@@ -27,11 +30,18 @@ public class CustomerController {
 	@Autowired
 	private CustomerRepository customerRepository2;
 	
+	
+	@Autowired
+	private IService<Customer> service;
 
 	
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<?> getCustomers(@PathVariable(required = false) String id){
-		return ResponseEntity.ok(customerRepository.findById(Long.valueOf(id)));
+		try {
+			return ResponseEntity.ok(service.findByID(id));
+		} catch (NumberFormatException | NotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	

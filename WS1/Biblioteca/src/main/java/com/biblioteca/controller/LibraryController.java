@@ -53,7 +53,7 @@ public class LibraryController {
 	// Añadir libro a la biblioteca
 	@PutMapping(path = "/library/{libraryId}&&{bookId}")
 	public ResponseEntity<?> putBook(@PathVariable int libraryId, @PathVariable int bookId) {
-		return libraryService.añadirLibro(libraryId, bookId);
+		return libraryService.anniadirLibro(libraryId, bookId);
 	}
 
 	// Borrar libro a la biblioteca
