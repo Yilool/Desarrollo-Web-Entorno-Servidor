@@ -14,10 +14,13 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/home/estudiante/DWES/WS/WS1/edu"/>
+			<item value="/home/estudiante/DWES/WS/WS1"/>
+			<item value="/home/estudiante/DWES/WS/WS1/Biblioteca"/>
+			<item value="/home/estudiante/DWES/WS/WS1/edu/edu"/>
 			<item value="/home/yichen/Escritorio/DWES/Desarrollo-Web-Entorno-Servidor/WS1/Biblioteca"/>
 			<item value="/home/yichen/Escritorio/DWES/Desarrollo-Web-Entorno-Servidor/WS1/Empresa"/>
 			<item value="/home/estudiante/DWES/WS/WS1/jacaranda2"/>
-			<item value="/home/estudiante/DWES/WS/WS1/edu"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
