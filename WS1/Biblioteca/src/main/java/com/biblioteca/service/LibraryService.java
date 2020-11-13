@@ -1,5 +1,6 @@
 package com.biblioteca.service;
 
+import org.apache.tomcat.jni.BIOCallback;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,8 +61,9 @@ public class LibraryService {
 
 	public ResponseEntity<?> borrarBiblioteca(Integer id) {
 		ResponseEntity<?> res = null;
-
-		if (libraryRepository.existsById(id)) {
+		Library biblio = libraryRepository.findLibraryById(id);
+		
+		if (biblio != null) {
 			libraryRepository.deleteById(id);
 			res = ResponseEntity.status(HttpStatus.OK).body("Se ha borrado biblioteca con id: " + id);
 		} else {
@@ -73,12 +75,13 @@ public class LibraryService {
 	
 	public ResponseEntity<?> anniadirLibro(Integer libraryId, Integer bookId) {
 		ResponseEntity<?> res = null;
-
-		if (libraryRepository.existsById(libraryId)) {
-			if (bookRepository.existsById(bookId)) {
-				Book b = bookRepository.findBookById(bookId);
-				Library l = libraryRepository.findLibraryById(libraryId);
-				b.setLibrary(l);
+		Library l = libraryRepository.findLibraryById(libraryId);
+		
+		if (l != null) {
+			Book b = bookRepository.findBookById(bookId);
+			
+			if (b != null) {
+				b.setLibrary(l.getId());
 				bookRepository.save(b);
 				res = ResponseEntity.status(HttpStatus.OK).body(b);
 			} else {
@@ -93,9 +96,9 @@ public class LibraryService {
 
 	public ResponseEntity<?> borrarLibro(Integer bookId) {
 		ResponseEntity<?> res = null;
+		Book b = bookRepository.findBookById(bookId);
 		
-		if (bookRepository.existsById(bookId)) {
-			Book b = bookRepository.findBookById(bookId);
+		if (b != null) {
 			b.setLibrary(null);
 			bookRepository.save(b);
 			res = ResponseEntity.status(HttpStatus.OK).body(b);

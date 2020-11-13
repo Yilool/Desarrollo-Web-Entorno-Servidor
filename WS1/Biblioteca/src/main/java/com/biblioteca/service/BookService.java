@@ -115,7 +115,7 @@ public class BookService {
 			if (pageRepository.existsById(pageId)) {
 				Page p = pageRepository.findPageById(pageId);
 				Book b = bookRepository.findBookById(bookId);
-				p.setBook(b);
+				p.setBook(b.getId());
 				pageRepository.save(p);
 				res = ResponseEntity.status(HttpStatus.OK).body(p);
 			} else {

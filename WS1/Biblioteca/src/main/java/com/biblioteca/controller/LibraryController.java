@@ -45,20 +45,20 @@ public class LibraryController {
 		return libraryService.actualizarBiblioteca(library);
 	}
 
-	@DeleteMapping(path = "/library/{id}")
+	@DeleteMapping(path = "/library/del/{id}")
 	public ResponseEntity<?> delLibrary(@PathVariable Integer id) {
 		return libraryService.borrarBiblioteca(id);
 	}
 
 	// Añadir libro a la biblioteca
 	@PutMapping(path = "/library/{libraryId}&&{bookId}")
-	public ResponseEntity<?> putBook(@PathVariable int libraryId, @PathVariable int bookId) {
+	public ResponseEntity<?> putBook(@PathVariable Integer libraryId, @PathVariable Integer bookId) {
 		return libraryService.anniadirLibro(libraryId, bookId);
 	}
 
 	// Borrar libro a la biblioteca
 	@DeleteMapping(path = "/library/{bookId}")
-	public ResponseEntity<?> delBook(@PathVariable int bookId) {
+	public ResponseEntity<?> delBook(@PathVariable Integer bookId) {
 		return libraryService.borrarLibro(bookId);
 	}
 

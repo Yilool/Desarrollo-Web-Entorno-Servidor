@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,9 +30,8 @@ public class Book implements Comparable<Book>, Serializable{
 	private Integer id;
 	@Column(name = "Title")
 	private String title;
-	@ManyToOne
 	@JoinColumn(name = "LibraryId")
-	private Library library;
+	private Integer library;
 	@OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Page> pages;
 	
@@ -41,7 +39,7 @@ public class Book implements Comparable<Book>, Serializable{
 		this.pages = new ArrayList<>();
 	}
 	
-	public Book(String title, Library library) {
+	public Book(String title, Integer library) {
 		this.title = title;
 		this.library = library;
 		this.pages = new ArrayList<>();
@@ -75,11 +73,11 @@ public class Book implements Comparable<Book>, Serializable{
 		this.pages = pages;
 	}
 
-	public Library getLibrary() {
+	public Integer getLibrary() {
 		return library;
 	}
 
-	public void setLibrary(Library library) {
+	public void setLibrary(Integer library) {
 		this.library = library;
 	}
 

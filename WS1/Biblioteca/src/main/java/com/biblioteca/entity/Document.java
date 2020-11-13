@@ -1,30 +1,37 @@
-package com.edu.model.entity;
+package com.biblioteca.entity;
 
+import java.io.Serializable;
 import java.sql.Blob;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
-@Entity
-public class Document {
+@Entity(name = "Documents")
+public class Document implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private Blob doc;
+	private Blob picture;
+	@Column(name = "FileName")
 	private String fileName;
+	@Column(name = "FileSize")
 	private Integer fileSize;
-
+	@JoinColumn(name = "PageId")
+	private Integer page;
 	
 	public Document() {
 	}
 	
-	public Document(Blob pic, String name, Integer size) {
-		this.doc = pic;
+	public Document(Blob pic, String name, Integer size, Integer page) {
+		this.picture = pic;
 		this.fileName = name;
 		this.fileSize = size;
+		this.page = page;
 	}
 	
 
@@ -37,11 +44,11 @@ public class Document {
 	}
 
 	public Blob getPicture() {
-		return doc;
+		return picture;
 	}
 
 	public void setPicture(Blob picture) {
-		this.doc = picture;
+		this.picture = picture;
 	}
 
 	public String getFileName() {

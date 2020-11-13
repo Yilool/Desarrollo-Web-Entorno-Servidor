@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="s.getProducts()"/>
+		<item key="selection" value="&#x09;&#x09;if (libraryRepository.existsById(libraryId)) {"/>
 		<list key="findhistory">
+			<item value="&#x09;&#x09;if (libraryRepository.existsById(libraryId)) {"/>
 			<item value="products"/>
 		</list>
 		<list key="replacehistory">

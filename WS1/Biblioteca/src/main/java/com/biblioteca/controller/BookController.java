@@ -45,13 +45,13 @@ public class BookController {
 		return bookService.actualizarLibro(book);
 	}
 
-	@DeleteMapping(path = "/book/{id}")
+	@DeleteMapping(path = "/book/del/{id}")
 	public ResponseEntity<?> delBook(@PathVariable Integer id) {
 		return bookService.borrarLibro(id);
 	}
 
 	// Añadir pagina al libro
-	@PutMapping(path = "/book/{bookId}&{pageId}")
+	@PutMapping(path = "/book/{bookId}&&{pageId}")
 	public ResponseEntity<?> putPage(@PathVariable Integer bookId, @PathVariable Integer pageId) {
 		return bookService.anniadirPagina(bookId, pageId);
 	}
