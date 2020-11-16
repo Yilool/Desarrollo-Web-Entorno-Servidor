@@ -66,5 +66,13 @@ public class Document implements Serializable{
 	public void setFileSize(Integer fileSize) {
 		this.fileSize = fileSize;
 	}
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
 	
 }

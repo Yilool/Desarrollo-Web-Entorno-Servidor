@@ -10,12 +10,9 @@ import com.biblioteca.entity.Document;
 import com.biblioteca.entity.Page;
 import com.biblioteca.repository.DocumentRepository;
 import com.biblioteca.repository.PageRepository;
-import com.sun.org.slf4j.internal.Logger;
-
-import javassist.NotFoundException;
 
 @Service
-public class PageService {
+public class PageService extends AbstractServiceUtils{
     @Autowired
     private PageRepository pageRepository;
     @Autowired
@@ -80,17 +77,23 @@ public class PageService {
     public ResponseEntity<?> anniadirDocumento(Integer pageId, MultipartFile document) {
     	ResponseEntity<?> res = null;
 
-    	try {
-        	Document d = documentRepository.save(new Document(fileHandlerService.createBlob(document), 
-        			document.getName(), Integer.valueOf((int) document.getSize()), pageId));
-        	
-        	Page p = pageRepository.findPageById(pageId);
-        	
-        	//p !=null? p.getDocuments().add(d):ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra pagina con id: "+id);
-		
-    	} catch (Exception e) {
-			Logger.debug(String.format("Page with identifier %s could not be found ", pageId));
-		}
+    	Page p = pageRepository.findPageById(pageId);
+
+    	if (p != null) {
+    		Document d = documentRepository.save(new Document(fileHandlerService.createBlob(document), 
+    				document.getName(), Integer.valueOf((int) document.getSize()), pageId));
+
+    		d.setPage(pageId);
+    		res = ResponseEntity.status(HttpStatus.NOT_FOUND).body(documentRepository.save(d));
+    	} else {
+    		res = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encuentra pagina con id: "+pageId);
+    	}
+
     	return res;
     }
+    
+//    ResponseEntity.ok()
+//	.contentType(MediaType.parseMediaType(f.getFileType()))
+//	.header("Descarga imagen", "attachment; filename=\"" + f.getFileName() + "\"")
+//	.body(new ByteArrayResource(f.getFile().getBytes(1L, (int)f.getFile().length())));
 }
