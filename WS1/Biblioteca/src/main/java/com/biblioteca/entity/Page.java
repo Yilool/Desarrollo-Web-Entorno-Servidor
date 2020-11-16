@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Clase Pagina
  * 
@@ -33,6 +35,7 @@ public class Page implements Comparable<Page>, Serializable{
 	@JoinColumn(name = "BookId")
 	private Integer book;
 	@OneToMany(mappedBy = "page", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Document> documents;
 	
 	public Page() {

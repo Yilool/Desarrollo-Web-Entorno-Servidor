@@ -45,19 +45,19 @@ public class BookController {
 		return bookService.actualizarLibro(book);
 	}
 
-	@DeleteMapping(path = "/book/del/{id}")
+	@DeleteMapping(path = "/book/{id}")
 	public ResponseEntity<?> delBook(@PathVariable Integer id) {
 		return bookService.borrarLibro(id);
 	}
 
 	// Añadir pagina al libro
-	@PutMapping(path = "/book/{bookId}&&{pageId}")
+	@PutMapping(path = "/book/page/{bookId}&&{pageId}")
 	public ResponseEntity<?> putPage(@PathVariable Integer bookId, @PathVariable Integer pageId) {
 		return bookService.anniadirPagina(bookId, pageId);
 	}
 
-	// Borrar producto al empleado
-	@DeleteMapping(path = "/book/{pageId}")
+	// Borrar pagina al libro
+	@DeleteMapping(path = "/book/page/{pageId}")
 	public ResponseEntity<?> delPage(@PathVariable Integer pageId) {
 		return bookService.borrarPagina(pageId);
 	}

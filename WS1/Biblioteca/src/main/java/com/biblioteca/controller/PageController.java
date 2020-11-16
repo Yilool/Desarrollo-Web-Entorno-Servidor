@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.biblioteca.entity.Page;
 import com.biblioteca.service.PageService;
@@ -43,5 +45,11 @@ public class PageController {
 	@DeleteMapping(path = "/page/{id}")
 	public ResponseEntity<?> delPage(@PathVariable Integer id) {
 		return pageService.borrarPagina(id);
+	}
+	
+	// Añadir doc a la pagina
+	@PutMapping(path = "/page/doc/{pageId}")
+	public ResponseEntity<?> upDoc(@PathVariable Integer pageId, @RequestParam(name = "doc", required = false) MultipartFile doc) {
+		return pageService.anniadirDocumento(pageId, doc);
 	}
 }
