@@ -17,6 +17,14 @@ public class LibraryService {
 	@Autowired
 	private BookRepository bookRepository;
 
+	public void setLibraryRepository(LibraryRepository libraryRepository) {
+		this.libraryRepository = libraryRepository;
+	}
+
+	public void setBookRepository(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}
+
 	public ResponseEntity<?> crearBiblioteca(Library l) {
 		ResponseEntity<?> res = null;
 

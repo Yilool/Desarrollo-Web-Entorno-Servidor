@@ -22,6 +22,14 @@ public class BookService {
 	@Autowired
 	private PageRepository pageRepository;
 
+	public void setBookRepository(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
+	}
+
+	public void setPageRepository(PageRepository pageRepository) {
+		this.pageRepository = pageRepository;
+	}
+
 	/**
 	 * Crea un libro
 	 * @param b

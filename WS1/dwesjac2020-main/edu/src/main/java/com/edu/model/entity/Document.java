@@ -1,40 +1,41 @@
-package com.biblioteca.entity;
+package com.edu.model.entity;
 
-import java.io.Serializable;
 import java.sql.Blob;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name = "Documents")
-public class Document implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Entity
+public class Document {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
 	private Blob picture;
-	@Column(name = "FileName")
+	
 	private String fileName;
-	@Column(name = "FileSize")
+	
 	private Integer fileSize;
-
+	
 	public Document() {
+		super();
 	}
-
-	public Document(Blob pic, String name, Integer size, Integer page) {
+	
+	public Document(Blob pic, String name, Integer size) {
 		this.picture = pic;
 		this.fileName = name;
 		this.fileSize = size;
 	}
+	
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -61,4 +62,5 @@ public class Document implements Serializable {
 	public void setFileSize(Integer fileSize) {
 		this.fileSize = fileSize;
 	}
+	
 }

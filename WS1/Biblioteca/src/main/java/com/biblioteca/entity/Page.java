@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "Pages")
-public class Page implements Comparable<Page>, Serializable{
+public class Page implements Comparable<Page>, Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,18 +35,16 @@ public class Page implements Comparable<Page>, Serializable{
 	private int number;
 	@JoinColumn(name = "BookId")
 	private Integer book;
-	@OneToMany(mappedBy = "page", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(targetEntity = Document.class)
 	@JsonIgnore
-	private List<Document> documents;
-	
+	private Document documents;
+
 	public Page() {
-		this.documents = new ArrayList<>();
 	}
-	
+
 	public Page(int number, Integer book) {
 		this.number = number;
 		this.book = book;
-		this.documents = new ArrayList<>();
 	}
 
 	public int getNumber() {
@@ -67,16 +66,16 @@ public class Page implements Comparable<Page>, Serializable{
 	public Integer getId() {
 		return id;
 	}
-	
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public List<Document> getDocuments() {
+	public Document getDocuments() {
 		return documents;
 	}
 
-	public void setDocuments(List<Document> documents) {
+	public void setDocuments(Document documents) {
 		this.documents = documents;
 	}
 
